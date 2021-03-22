@@ -15,7 +15,7 @@ a {
 }
 
 :root {
-  --primary-font-color: #e3b93b;
+  --primary-color: #e3b93b;
   --primary-border-color: #221f20;
-  --background-color: #270c81;
+  --secondary-color: #270c81;
 }
