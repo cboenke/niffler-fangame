@@ -1,18 +1,18 @@
 import styles from "./Button.module.css";
+import Link from "next/link";
 
 export type ButtonProps = {
-  primary: boolean;
-  label: string;
+  imgSrc: string;
+  href: string;
 };
 
-function Button({ primary, label, ...props }: ButtonProps) {
+function Button({ imgSrc, href }: ButtonProps) {
   return (
-    <button
-      className={`${styles.btn} ${primary ? styles.primary : ""}`}
-      {...props}
-    >
-      {label}
-    </button>
+    <Link href={href}>
+      <button className={styles.btn}>
+        <img src={imgSrc} />
+      </button>
+    </Link>
   );
 }
 

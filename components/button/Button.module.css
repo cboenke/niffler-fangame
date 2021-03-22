@@ -1,8 +1,17 @@
 .btn {
-  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  padding: 0.6em;
+  margin: 0;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border-color: var(--primary-border-color);
+  font-family: Roboto, sans-serif;
+  border-width: 0.01em;
 }
 
-.primary {
-  color: antiquewhite;
-  background: black;
+.btn img {
+  padding: 0;
+  margin: 0;
 }

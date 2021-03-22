@@ -9,13 +9,14 @@ export default {
 
 const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 
-export const Primary = Template.bind({});
-Primary.args = {
-  primary: true,
-  label: "Button",
+export const Play = Template.bind({});
+Play.args = {
+  imgSrc: "/playSymbol.svg",
+  href: "#",
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {
-  label: "Button",
+export const Intro = Template.bind({});
+Intro.args = {
+  imgSrc: "/iSymbol.svg",
+  href: "#",
 };
