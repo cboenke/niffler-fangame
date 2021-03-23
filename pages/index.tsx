@@ -1,15 +1,33 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
+import Button from "../components/button/Button";
+import Greeting from "../components/greeting/Greeting";
+import styles from "../styles/Welcome.module.css";
 
-export default function Home() {
+const intro = {
+  imgSrc: "/iSymbol.svg",
+  href: "#",
+};
+
+const play = {
+  imgSrc: "/playSymbol.svg",
+  href: "#",
+};
+
+export default function Welcome() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Placeholder for game name</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className={styles.main}></main>
+      <main className={styles.main}>
+        <Greeting />
+        <img src="/pileOfGold.svg" className={styles.img} />
+        <div className={styles.buttons}>
+          <Button {...intro} />
+          <Button {...play} />
+        </div>
+      </main>
     </div>
   );
 }
