@@ -1,0 +1,25 @@
+.container {
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: grid;
+  justify-content: center;
+  background-color: var(--secondary-color);
+}
+
+.main {
+  padding: 5rem 0;
+  display: grid;
+  justify-content: center;
+  margin: 0;
+}
+
+.img {
+  margin-top: 7em;
+  margin-bottom: 2em;
+}
+
+.buttons {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+}

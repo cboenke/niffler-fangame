@@ -3,3 +3,8 @@
   text-align: center;
   text-shadow: 0 0 0.5em var(--primary-border-color);
 }
+
+.heading,
+.subheading {
+  margin: 0;
+}
