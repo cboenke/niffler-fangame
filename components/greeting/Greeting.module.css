@@ -1,0 +1,5 @@
+.container {
+  color: var(--primary-color);
+  text-align: center;
+  text-shadow: 0 0 0.5em var(--primary-border-color);
+}
