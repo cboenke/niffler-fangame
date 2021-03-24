@@ -12,7 +12,7 @@ function Introduction() {
           shiny things as you can but avoid everything else.
         </section>
       </div>
-      <h2 className={styles.subheading}>Navigation</h2>
+      <h3 className={styles.subheading}>Navigation</h3>
       <section className={styles.control}>Tbd</section>
     </div>
   );

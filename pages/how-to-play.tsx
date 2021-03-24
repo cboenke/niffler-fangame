@@ -1,19 +1,14 @@
 import Head from "next/head";
 import Button from "../components/button/Button";
-import Greeting from "../components/greeting/Greeting";
-import styles from "../styles/Welcome.module.css";
-
-const intro = {
-  imgSrc: "/iSymbol.svg",
-  href: "/how-to-play",
-};
+import Introduction from "../components/introduction/Introduction";
+import styles from "../styles/HowToPlay.module.css";
 
 const play = {
   imgSrc: "/playSymbol.svg",
   href: "#",
 };
 
-export default function Welcome() {
+export default function HowToPlay() {
   return (
     <div className={styles.container}>
       <Head>
@@ -21,10 +16,9 @@ export default function Welcome() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <Greeting />
-        <img src="/pileOfGold.svg" className={styles.img} />
-        <div className={styles.buttons}>
-          <Button {...intro} />
+        <img src="/howToPlay.png" className={styles.img} />
+        <Introduction />
+        <div className={styles.button}>
           <Button {...play} />
         </div>
       </main>
