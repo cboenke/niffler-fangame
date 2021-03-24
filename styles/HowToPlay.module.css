@@ -1,0 +1,24 @@
+.container {
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: grid;
+  justify-content: center;
+  background: url("/introBg.svg") center center repeat;
+}
+
+.main {
+  padding: 4.5rem 3rem;
+  display: grid;
+  justify-content: center;
+  align-content: space-between;
+  margin: 0;
+}
+
+.img {
+  max-width: 110%;
+  justify-self: center;
+}
+
+.button {
+  justify-self: end;
+}
