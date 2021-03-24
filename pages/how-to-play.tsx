@@ -3,11 +3,6 @@ import Button from "../components/button/Button";
 import Introduction from "../components/introduction/Introduction";
 import styles from "../styles/HowToPlay.module.css";
 
-const play = {
-  imgSrc: "/playSymbol.svg",
-  href: "#",
-};
-
 export default function HowToPlay() {
   return (
     <div className={styles.container}>
@@ -19,7 +14,7 @@ export default function HowToPlay() {
         <img src="/howToPlay.png" className={styles.img} />
         <Introduction />
         <div className={styles.button}>
-          <Button {...play} />
+          <Button imgSrc="/playSymbol.svg" href="#" />
         </div>
       </main>
     </div>

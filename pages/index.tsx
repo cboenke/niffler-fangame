@@ -3,16 +3,6 @@ import Button from "../components/button/Button";
 import Greeting from "../components/greeting/Greeting";
 import styles from "../styles/Welcome.module.css";
 
-const intro = {
-  imgSrc: "/iSymbol.svg",
-  href: "/how-to-play",
-};
-
-const play = {
-  imgSrc: "/playSymbol.svg",
-  href: "#",
-};
-
 export default function Welcome() {
   return (
     <div className={styles.container}>
@@ -24,8 +14,8 @@ export default function Welcome() {
         <Greeting />
         <img src="/pileOfGold.svg" className={styles.img} />
         <div className={styles.buttons}>
-          <Button {...intro} />
-          <Button {...play} />
+          <Button imgSrc="/iSymbol.svg" href="/how-to-play" />
+          <Button imgSrc="/playSymbol.svg" href="#" />
         </div>
       </main>
     </div>
