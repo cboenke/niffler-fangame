@@ -10,6 +10,7 @@
   padding: 5rem 0;
   display: grid;
   justify-content: center;
+  grid-template-rows: auto 1fr auto;
   margin: 0;
 }
 
@@ -21,5 +22,5 @@
 .buttons {
   display: grid;
   grid-auto-flow: column;
-  justify-content: space-between;
+  justify-content: space-around;
 }

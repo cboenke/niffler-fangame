@@ -16,10 +16,9 @@
 
 .img {
   max-width: 110%;
-  display: grid;
   justify-self: center;
 }
 
 .button {
-  justify-self: flex-end;
+  justify-self: end;
 }
