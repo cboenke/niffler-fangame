@@ -15,7 +15,7 @@ export default function Welcome() {
         <img src="/pileOfGold.svg" className={styles.img} />
         <div className={styles.buttons}>
           <Button imgSrc="/iSymbol.svg" href="/how-to-play" />
-          <Button imgSrc="/playSymbol.svg" href="#" />
+          <Button imgSrc="/playSymbol.svg" href="/game" />
         </div>
       </main>
     </div>
