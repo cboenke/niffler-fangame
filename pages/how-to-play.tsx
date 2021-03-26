@@ -14,7 +14,7 @@ export default function HowToPlay() {
         <img src="/howToPlay.png" className={styles.img} />
         <Introduction />
         <div className={styles.button}>
-          <Button imgSrc="/playSymbol.svg" href="#" />
+          <Button imgSrc="/playSymbol.svg" href="/game" />
         </div>
       </main>
     </div>
