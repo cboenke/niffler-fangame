@@ -5,7 +5,7 @@ function Game() {
   useEffect(() => {
     const config = {
       type: Phaser.AUTO,
-      width: 2597,
+      width: "100%",
       height: 375,
       scene: {
         preload: preload,
@@ -35,13 +35,14 @@ function Game() {
       this.add.image(1900, 140, "granny");
       this.add.image(1935, 224, "purse1");
 
-      player = this.physics.add.sprite(80, 280, "niffler");
+      player = this.physics.add.sprite(80, 265, "niffler");
 
       player.setBounce(0);
-      // player.setVelocity(70, 0);
       player.setCollideWorldBounds(true);
 
-      this.cameras.main.setBounds(0, 0, 667, 375);
+      this.physics.world.setBounds(0, 0, 2597, 375);
+
+      this.cameras.main.setBounds(0, 0, 2597, 375);
       this.cameras.main.startFollow(player, true);
 
       this.anims.create({
