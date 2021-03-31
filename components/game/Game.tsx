@@ -84,9 +84,7 @@ function Game() {
         player.setVelocityX(0) && player.setVelocityY(0);
         player.anims.play("standing", true);
       }
-      this.physics.add.collider(granny, player, function () {
-        console.log("hit?");
-      });
+      this.physics.add.collider(granny, player);
     }
 
     function touchPurse(purseClasp, player) {
