@@ -43,7 +43,7 @@ function Game() {
       player.setBounce(0);
       player.setCollideWorldBounds(true);
 
-      this.physics.world.setBounds(0, 0, 2597, 375);
+      this.physics.world.setBounds(0, 130, 2557, 245);
 
       this.cameras.main.setBounds(0, 0, 2597, 375);
       this.cameras.main.startFollow(player, true);
