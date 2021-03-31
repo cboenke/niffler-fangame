@@ -19,13 +19,13 @@ function Game() {
 
     let player;
     let granny;
-    let purse1;
+    let purseClasp;
 
     function preload() {
       this.load.image("street", "/canvasLayer1.svg");
       this.load.image("granny", "/granny.png");
-      this.load.image("purse1", "/purse1.svg");
-      this.load.image("purse2", "/purse2.svg");
+      this.load.image("purseClasp", "/purseClasp.svg");
+      this.load.image("purseNoClasp", "/purseNoClasp.svg");
       this.load.spritesheet("niffler", "/spritesheetNiffler.png", {
         frameWidth: 120,
         frameHeight: 51,
@@ -35,8 +35,8 @@ function Game() {
     function create() {
       this.add.image(1340, 52, "street");
       granny = this.physics.add.image(1900, 140, "granny").setImmovable();
-      this.physics.add.image(1935, 224, "purse2");
-      purse1 = this.physics.add.image(1935, 224, "purse1");
+      this.physics.add.image(1935, 224, "purseNoClasp");
+      purseClasp = this.physics.add.image(1935, 224, "purseClasp");
 
       player = this.physics.add.sprite(80, 265, "niffler");
 
@@ -66,7 +66,7 @@ function Game() {
         repeat: -1,
       });
 
-      this.physics.add.overlap(purse1, player, touchPurse, null, this);
+      this.physics.add.overlap(purseClasp, player, touchPurse, null, this);
     }
 
     function update() {
@@ -89,9 +89,9 @@ function Game() {
       });
     }
 
-    function touchPurse(purse1, player) {
-      if (player.body.touching.up && purse1.body.touching.down) {
-        purse1.disableBody(true, true);
+    function touchPurse(purseClasp, player) {
+      if (player.body.touching.up && purseClasp.body.touching.down) {
+        purseClasp.disableBody(true, true);
       }
     }
 
