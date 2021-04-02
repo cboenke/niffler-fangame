@@ -20,6 +20,11 @@ function Game() {
     let player;
     let granny;
     let purseClasp;
+    let collectGroup;
+    let necklace;
+    let chalice;
+    let noTreasureArea;
+    let randomTreasures;
 
     function preload() {
       this.load.image("street", "/canvasLayer1.svg");
@@ -30,6 +35,14 @@ function Game() {
         frameWidth: 120,
         frameHeight: 51,
       });
+      this.load.image("coin", "/coin.svg");
+      this.load.image("jewel", "/jewel.svg");
+      this.load.image("twistedBracelet", "/twistedBracelet.svg");
+      this.load.image("jewelBracelet", "/jewelBracelet.svg");
+      this.load.image("necklace", "/necklace.svg");
+      this.load.image("ruby", "/ruby.svg");
+      this.load.image("emerald", "/emerald.svg");
+      this.load.image("chalice", "/chalice.svg");
     }
 
     function create() {
@@ -37,6 +50,40 @@ function Game() {
       granny = this.physics.add.image(1900, 140, "granny").setImmovable();
       this.physics.add.image(1935, 224, "purseNoClasp");
       purseClasp = this.physics.add.image(1935, 224, "purseClasp");
+      necklace = this.physics.add.image(1320, 165, "necklace");
+      chalice = this.physics.add.image(
+        2500,
+        Phaser.Math.Between(165, 350),
+        "chalice"
+      );
+      randomTreasures = this.randomTreasures = [
+        "coin",
+        "coin",
+        "coin",
+        "jewel",
+        "jewel",
+        "ruby",
+        "emerald",
+        "twistedBracelet",
+        "jewelBracelet",
+      ];
+
+      collectGroup = this.physics.add.staticGroup({
+        key: randomTreasures,
+        frameQuantity: 1,
+      });
+
+      const children = collectGroup.getChildren();
+
+      for (let i = 0; i < children.length; i++) {
+        const randomX = Phaser.Math.Between(150, 2300);
+        const randomY = Phaser.Math.Between(165, 350);
+        console.log(randomY);
+
+        children[i].setPosition(randomX, randomY);
+      }
+
+      collectGroup.refresh();
 
       player = this.physics.add.sprite(80, 265, "niffler");
 
@@ -47,6 +94,8 @@ function Game() {
 
       this.cameras.main.setBounds(0, 0, 2597, 375);
       this.cameras.main.startFollow(player, true);
+
+      noTreasureArea = { granny, purseClasp };
 
       this.anims.create({
         key: "standing",
@@ -67,6 +116,17 @@ function Game() {
       });
 
       this.physics.add.overlap(purseClasp, player, touchPurse, null, this);
+      this.physics.add.overlap(
+        children,
+        player,
+        touchRandomTreasures,
+        null,
+        this
+      );
+      this.physics.add.overlap(necklace, player, touchNecklace, null, this);
+      this.physics.add.overlap(chalice, player, touchChalice, null, this);
+      this.physics.add.collider(collectGroup);
+      this.physics.add.collider(collectGroup, noTreasureArea);
     }
 
     function update() {
@@ -91,6 +151,18 @@ function Game() {
       if (player.body.touching.up && purseClasp.body.touching.down) {
         purseClasp.disableBody(true, true);
       }
+    }
+
+    function touchRandomTreasures(children) {
+      children.disableBody(true, true);
+    }
+
+    function touchNecklace(necklace) {
+      necklace.disableBody(true, true);
+    }
+
+    function touchChalice(chalice) {
+      chalice.disableBody(true, true);
     }
 
     const game = new Phaser.Game(config);
