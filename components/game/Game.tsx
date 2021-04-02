@@ -27,22 +27,26 @@ function Game() {
     let randomTreasures;
 
     function preload() {
-      this.load.image("street", "/canvasLayer1.svg");
+      [
+        "street",
+        "purseClasp",
+        "purseNoClasp",
+        "coin",
+        "jewel",
+        "twistedBracelet",
+        "jewelBracelet",
+        "necklace",
+        "ruby",
+        "emerald",
+        "chalice",
+      ].forEach((imageName) => {
+        this.load.image(imageName, `/${imageName}.svg`);
+      });
       this.load.image("granny", "/granny.png");
-      this.load.image("purseClasp", "/purseClasp.svg");
-      this.load.image("purseNoClasp", "/purseNoClasp.svg");
       this.load.spritesheet("niffler", "/spritesheetNiffler.png", {
         frameWidth: 120,
         frameHeight: 51,
       });
-      this.load.image("coin", "/coin.svg");
-      this.load.image("jewel", "/jewel.svg");
-      this.load.image("twistedBracelet", "/twistedBracelet.svg");
-      this.load.image("jewelBracelet", "/jewelBracelet.svg");
-      this.load.image("necklace", "/necklace.svg");
-      this.load.image("ruby", "/ruby.svg");
-      this.load.image("emerald", "/emerald.svg");
-      this.load.image("chalice", "/chalice.svg");
     }
 
     function create() {
@@ -56,7 +60,7 @@ function Game() {
         Phaser.Math.Between(165, 350),
         "chalice"
       );
-      randomTreasures = this.randomTreasures = [
+      randomTreasures = [
         "coin",
         "coin",
         "coin",
@@ -78,7 +82,6 @@ function Game() {
       for (let i = 0; i < children.length; i++) {
         const randomX = Phaser.Math.Between(150, 2300);
         const randomY = Phaser.Math.Between(165, 350);
-        console.log(randomY);
 
         children[i].setPosition(randomX, randomY);
       }
