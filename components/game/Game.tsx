@@ -17,14 +17,14 @@ function Game() {
       },
     };
 
-    let player;
-    let granny;
-    let purseClasp;
-    let collectGroup;
-    let necklace;
-    let chalice;
-    let noTreasureArea;
-    let randomTreasures;
+    let player: Phaser.Physics.Arcade.Sprite;
+    let granny: Phaser.Physics.Arcade.ArcadePhysics;
+    let purseClasp: Phaser.Physics.Arcade.ArcadePhysics;
+    let collectGroup: Phaser.Physics.Arcade.StaticGroup;
+    let necklace: Phaser.Physics.Arcade.ArcadePhysics;
+    let chalice: Phaser.Physics.Arcade.ArcadePhysics;
+    // let noTreasureArea: Phaser.Physics.Arcade.Collider;
+    let randomTreasures: string[];
 
     function preload() {
       [
@@ -90,7 +90,7 @@ function Game() {
 
       player = this.physics.add.sprite(80, 265, "niffler");
 
-      player.setBounce(0);
+      player.setBounce(0, 0);
       player.setCollideWorldBounds(true);
 
       this.physics.world.setBounds(0, 130, 2557, 245);
@@ -98,7 +98,7 @@ function Game() {
       this.cameras.main.setBounds(0, 0, 2597, 375);
       this.cameras.main.startFollow(player, true);
 
-      noTreasureArea = { granny, purseClasp };
+      // noTreasureArea = { granny, purseClasp };
 
       this.anims.create({
         key: "standing",
@@ -129,7 +129,7 @@ function Game() {
       this.physics.add.overlap(necklace, player, touchNecklace, null, this);
       this.physics.add.overlap(chalice, player, touchChalice, null, this);
       this.physics.add.collider(collectGroup);
-      this.physics.add.collider(collectGroup, noTreasureArea);
+      // this.physics.add.collider(collectGroup, noTreasureArea);
     }
 
     function update() {
