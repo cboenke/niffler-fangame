@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import Phaser from "phaser";
 
-function Game() {
+function Game(this: Phaser.Scene) {
   useEffect(() => {
-    const config = {
+    const config: Phaser.Types.Core.GameConfig = {
       type: Phaser.AUTO,
       width: "100%",
       height: 375,
@@ -18,15 +18,15 @@ function Game() {
     };
 
     let player: Phaser.Physics.Arcade.Sprite;
-    let granny: Phaser.Physics.Arcade.ArcadePhysics;
-    let purseClasp: Phaser.Physics.Arcade.ArcadePhysics;
-    let collectGroup: Phaser.Physics.Arcade.StaticGroup;
-    let necklace: Phaser.Physics.Arcade.ArcadePhysics;
-    let chalice: Phaser.Physics.Arcade.ArcadePhysics;
+    let granny: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
+    let purseClasp: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
+    let collectGroup; //no type definition because phasers type definition is missing a property
+    let necklace: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
+    let chalice: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
     // let noTreasureArea: Phaser.Physics.Arcade.Collider;
     let randomTreasures: string[];
 
-    function preload() {
+    function preload(this: Phaser.Scene) {
       [
         "street",
         "purseClasp",
@@ -49,7 +49,7 @@ function Game() {
       });
     }
 
-    function create() {
+    function create(this: Phaser.Scene) {
       this.add.image(1340, 52, "street");
       granny = this.physics.add.image(1900, 140, "granny").setImmovable();
       this.physics.add.image(1935, 224, "purseNoClasp");
@@ -128,11 +128,11 @@ function Game() {
       );
       this.physics.add.overlap(necklace, player, touchNecklace, null, this);
       this.physics.add.overlap(chalice, player, touchChalice, null, this);
-      this.physics.add.collider(collectGroup);
+      // this.physics.add.collider(collectGroup, null);
       // this.physics.add.collider(collectGroup, noTreasureArea);
     }
 
-    function update() {
+    function update(this: Phaser.Scene) {
       const cursors = this.input.keyboard.createCursorKeys();
       if (cursors.right.isDown) {
         player.setVelocityX(200);
