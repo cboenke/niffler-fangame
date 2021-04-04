@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import Phaser from "phaser";
 
-function Game() {
+function Game(this: Phaser.Scene) {
   useEffect(() => {
-    const config = {
+    const config: Phaser.Types.Core.GameConfig = {
       type: Phaser.AUTO,
       width: "100%",
       height: 375,
@@ -17,36 +17,88 @@ function Game() {
       },
     };
 
-    let player;
-    let granny;
-    let purseClasp;
+    let player: Phaser.Physics.Arcade.Sprite;
+    let granny: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
+    let purseClasp: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
+    let collectGroup; //no type definition because phasers type definition is missing a property
+    let necklace: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
+    let chalice: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
+    // let noTreasureArea: Phaser.Physics.Arcade.Collider;
+    let randomTreasures: string[];
 
-    function preload() {
-      this.load.image("street", "/canvasLayer1.svg");
+    function preload(this: Phaser.Scene) {
+      [
+        "street",
+        "purseClasp",
+        "purseNoClasp",
+        "coin",
+        "jewel",
+        "twistedBracelet",
+        "jewelBracelet",
+        "necklace",
+        "ruby",
+        "emerald",
+        "chalice",
+      ].forEach((imageName) => {
+        this.load.image(imageName, `/${imageName}.svg`);
+      });
       this.load.image("granny", "/granny.png");
-      this.load.image("purseClasp", "/purseClasp.svg");
-      this.load.image("purseNoClasp", "/purseNoClasp.svg");
       this.load.spritesheet("niffler", "/spritesheetNiffler.png", {
         frameWidth: 120,
         frameHeight: 51,
       });
     }
 
-    function create() {
+    function create(this: Phaser.Scene) {
       this.add.image(1340, 52, "street");
       granny = this.physics.add.image(1900, 140, "granny").setImmovable();
       this.physics.add.image(1935, 224, "purseNoClasp");
       purseClasp = this.physics.add.image(1935, 224, "purseClasp");
+      necklace = this.physics.add.image(1320, 165, "necklace");
+      chalice = this.physics.add.image(
+        2500,
+        Phaser.Math.Between(165, 350),
+        "chalice"
+      );
+      randomTreasures = [
+        "coin",
+        "coin",
+        "coin",
+        "jewel",
+        "jewel",
+        "ruby",
+        "emerald",
+        "twistedBracelet",
+        "jewelBracelet",
+      ];
+
+      collectGroup = this.physics.add.staticGroup({
+        key: randomTreasures,
+        frameQuantity: 1,
+      });
+
+      const children = collectGroup.getChildren();
+
+      for (let i = 0; i < children.length; i++) {
+        const randomX = Phaser.Math.Between(150, 2300);
+        const randomY = Phaser.Math.Between(165, 350);
+
+        children[i].setPosition(randomX, randomY);
+      }
+
+      collectGroup.refresh();
 
       player = this.physics.add.sprite(80, 265, "niffler");
 
-      player.setBounce(0);
+      player.setBounce(0, 0);
       player.setCollideWorldBounds(true);
 
       this.physics.world.setBounds(0, 130, 2557, 245);
 
       this.cameras.main.setBounds(0, 0, 2597, 375);
       this.cameras.main.startFollow(player, true);
+
+      // noTreasureArea = { granny, purseClasp };
 
       this.anims.create({
         key: "standing",
@@ -67,9 +119,20 @@ function Game() {
       });
 
       this.physics.add.overlap(purseClasp, player, touchPurse, null, this);
+      this.physics.add.overlap(
+        children,
+        player,
+        touchRandomTreasures,
+        null,
+        this
+      );
+      this.physics.add.overlap(necklace, player, touchNecklace, null, this);
+      this.physics.add.overlap(chalice, player, touchChalice, null, this);
+      // this.physics.add.collider(collectGroup, null);
+      // this.physics.add.collider(collectGroup, noTreasureArea);
     }
 
-    function update() {
+    function update(this: Phaser.Scene) {
       const cursors = this.input.keyboard.createCursorKeys();
       if (cursors.right.isDown) {
         player.setVelocityX(200);
@@ -91,6 +154,18 @@ function Game() {
       if (player.body.touching.up && purseClasp.body.touching.down) {
         purseClasp.disableBody(true, true);
       }
+    }
+
+    function touchRandomTreasures(children) {
+      children.disableBody(true, true);
+    }
+
+    function touchNecklace(necklace) {
+      necklace.disableBody(true, true);
+    }
+
+    function touchChalice(chalice) {
+      chalice.disableBody(true, true);
     }
 
     const game = new Phaser.Game(config);
