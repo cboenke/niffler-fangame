@@ -25,6 +25,10 @@ function Game(this: Phaser.Scene) {
     let chalice: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
     // let noTreasureArea: Phaser.Physics.Arcade.Collider;
     let randomTreasures: string[];
+    let randomEnemies: string[];
+    let avoidGroup; //no type definition because phasers type definition is missing a property
+    let cigarette: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
+    let gameOver = false;
 
     function preload(this: Phaser.Scene) {
       [
@@ -39,6 +43,9 @@ function Game(this: Phaser.Scene) {
         "ruby",
         "emerald",
         "chalice",
+        "screw",
+        "nut",
+        "cigarette",
       ].forEach((imageName) => {
         this.load.image(imageName, `/${imageName}.svg`);
       });
@@ -60,6 +67,12 @@ function Game(this: Phaser.Scene) {
         Phaser.Math.Between(165, 350),
         "chalice"
       );
+      cigarette = this.physics.add.image(
+        Phaser.Math.Between(250, 2300),
+        Phaser.Math.Between(165, 350),
+        "cigarette"
+      );
+
       randomTreasures = [
         "coin",
         "coin",
@@ -87,6 +100,24 @@ function Game(this: Phaser.Scene) {
       }
 
       collectGroup.refresh();
+
+      randomEnemies = ["nut", "nut", "screw", "screw"];
+
+      avoidGroup = this.physics.add.staticGroup({
+        key: randomEnemies,
+        frameQuantity: 1,
+      });
+
+      const childrenE = avoidGroup.getChildren();
+
+      for (let i = 0; i < childrenE.length; i++) {
+        const randomX = Phaser.Math.Between(250, 2300);
+        const randomY = Phaser.Math.Between(165, 350);
+
+        childrenE[i].setPosition(randomX, randomY);
+      }
+
+      avoidGroup.refresh();
 
       player = this.physics.add.sprite(80, 265, "niffler");
 
@@ -128,12 +159,23 @@ function Game(this: Phaser.Scene) {
       );
       this.physics.add.overlap(necklace, player, touchNecklace, null, this);
       this.physics.add.overlap(chalice, player, touchChalice, null, this);
+      this.physics.add.overlap(
+        childrenE,
+        player,
+        touchRandomEnemies,
+        null,
+        this
+      );
+      this.physics.add.overlap(cigarette, player, touchCigarette, null, this);
       // this.physics.add.collider(collectGroup, null);
       // this.physics.add.collider(collectGroup, noTreasureArea);
     }
 
     function update(this: Phaser.Scene) {
       const cursors = this.input.keyboard.createCursorKeys();
+      if (gameOver) {
+        return;
+      }
       if (cursors.right.isDown) {
         player.setVelocityX(200);
         player.anims.play("running", true);
@@ -166,6 +208,18 @@ function Game(this: Phaser.Scene) {
 
     function touchChalice(chalice) {
       chalice.disableBody(true, true);
+    }
+
+    function touchRandomEnemies(childrenE) {
+      childrenE.disableBody(true, true);
+    }
+
+    function touchCigarette(cigarette, player) {
+      this.physics.pause();
+      cigarette.disableBody(true, true);
+      player.flipY = true;
+      player.anims.play("standing", true);
+      gameOver = true;
     }
 
     const game = new Phaser.Game(config);
