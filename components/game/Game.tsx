@@ -33,7 +33,7 @@ function Game(this: Phaser.Scene) {
     let score = 0;
     let scoreText: Phaser.GameObjects.Text;
     let container: Phaser.GameObjects.Container;
-    let contCam; //no type definition because phasers type definition is missing a property
+    let scoreCam; //no type definition because phasers type definition is missing a property
 
     function preload(this: Phaser.Scene) {
       [
@@ -186,11 +186,11 @@ function Game(this: Phaser.Scene) {
       scoreText.setText("Score: " + 0);
       container = this.add.container();
       container.add(scoreText);
-      contCam = this.cameras.add(0, 0, 2597, 375);
-      this.cameras.main.ignore(contCam);
+      scoreCam = this.cameras.add(0, 0, 2597, 375);
+      this.cameras.main.ignore(scoreCam);
       this.cameras.main.ignore(scoreText);
 
-      contCam.ignore([
+      scoreCam.ignore([
         street,
         collectGroup,
         avoidGroup,
