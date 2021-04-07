@@ -18,6 +18,7 @@ function Game(this: Phaser.Scene) {
     };
 
     let player: Phaser.Physics.Arcade.Sprite;
+    let street: Phaser.GameObjects.Image;
     let granny: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
     let purseClasp: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
     let collectGroup; //no type definition because phasers type definition is missing a property
@@ -29,6 +30,10 @@ function Game(this: Phaser.Scene) {
     let avoidGroup; //no type definition because phasers type definition is missing a property
     let cigarette: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
     let gameOver = false;
+    let score = 0;
+    let scoreText: Phaser.GameObjects.Text;
+    let container: Phaser.GameObjects.Container;
+    let scoreCam; //no type definition because phasers type definition is missing a property
 
     function preload(this: Phaser.Scene) {
       [
@@ -57,7 +62,7 @@ function Game(this: Phaser.Scene) {
     }
 
     function create(this: Phaser.Scene) {
-      this.add.image(1340, 52, "street");
+      street = this.add.image(1340, 52, "street");
       granny = this.physics.add.image(1900, 140, "granny").setImmovable();
       this.physics.add.image(1935, 224, "purseNoClasp");
       purseClasp = this.physics.add.image(1935, 224, "purseClasp");
@@ -169,6 +174,33 @@ function Game(this: Phaser.Scene) {
       this.physics.add.overlap(cigarette, player, touchCigarette, null, this);
       // this.physics.add.collider(collectGroup, null);
       // this.physics.add.collider(collectGroup, noTreasureArea);
+
+      scoreText = this.add.text(16, 16, "Score", {
+        fontFamily: "Roboto",
+        fontSize: "4em",
+        fontStyle: "bold",
+        color: "#e3b93b",
+      });
+      scoreText.setFontFamily("sans-serif");
+      scoreText.setShadow(1, 2, "#270c81", 3);
+      scoreText.setText("Score: " + 0);
+      container = this.add.container();
+      container.add(scoreText);
+      scoreCam = this.cameras.add(0, 0, 2597, 375);
+      this.cameras.main.ignore(scoreCam);
+      this.cameras.main.ignore(scoreText);
+
+      scoreCam.ignore([
+        street,
+        collectGroup,
+        avoidGroup,
+        granny,
+        player,
+        purseClasp,
+        necklace,
+        chalice,
+        cigarette,
+      ]);
     }
 
     function update(this: Phaser.Scene) {
@@ -195,23 +227,33 @@ function Game(this: Phaser.Scene) {
     function touchPurse(purseClasp, player) {
       if (player.body.touching.up && purseClasp.body.touching.down) {
         purseClasp.disableBody(true, true);
+        score += 50;
+        scoreText.setText("Score: " + score);
       }
     }
 
     function touchRandomTreasures(children) {
       children.disableBody(true, true);
+      score += 20;
+      scoreText.setText("Score: " + score);
     }
 
     function touchNecklace(necklace) {
       necklace.disableBody(true, true);
+      score += 60;
+      scoreText.setText("Score: " + score);
     }
 
     function touchChalice(chalice) {
       chalice.disableBody(true, true);
+      score += 100;
+      scoreText.setText("Score: " + score);
     }
 
     function touchRandomEnemies(childrenE) {
       childrenE.disableBody(true, true);
+      score -= 20;
+      scoreText.setText("Score: " + score);
     }
 
     function touchCigarette(cigarette, player) {
