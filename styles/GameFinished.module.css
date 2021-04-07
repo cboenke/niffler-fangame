@@ -1,0 +1,27 @@
+.container {
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: grid;
+  justify-content: center;
+  background-color: var(--secondary-color);
+}
+
+.main {
+  padding: 5rem 0;
+  display: grid;
+  justify-content: center;
+  grid-template-rows: auto 1fr auto;
+  margin: 0;
+}
+
+.img {
+  display: grid;
+  width: 80%;
+  margin-top: 7em;
+  margin-bottom: 7em;
+  justify-self: center;
+}
+
+.play {
+  justify-self: end;
+}
