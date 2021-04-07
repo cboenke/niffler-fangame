@@ -229,6 +229,7 @@ function Game(this: Phaser.Scene) {
         purseClasp.disableBody(true, true);
         score += 50;
         scoreText.setText("Score: " + score);
+        localStorage.setItem("score", JSON.stringify(score));
       }
     }
 
@@ -236,24 +237,28 @@ function Game(this: Phaser.Scene) {
       children.disableBody(true, true);
       score += 20;
       scoreText.setText("Score: " + score);
+      localStorage.setItem("score", JSON.stringify(score));
     }
 
     function touchNecklace(necklace) {
       necklace.disableBody(true, true);
       score += 60;
       scoreText.setText("Score: " + score);
+      localStorage.setItem("score", JSON.stringify(score));
     }
 
     function touchChalice(chalice) {
       chalice.disableBody(true, true);
       score += 100;
       scoreText.setText("Score: " + score);
+      localStorage.setItem("score", JSON.stringify(score));
     }
 
     function touchRandomEnemies(childrenE) {
       childrenE.disableBody(true, true);
       score -= 20;
       scoreText.setText("Score: " + score);
+      localStorage.setItem("score", JSON.stringify(score));
     }
 
     function touchCigarette(cigarette, player) {

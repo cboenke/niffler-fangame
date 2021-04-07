@@ -1,0 +1,16 @@
+.container {
+  color: var(--primary-color);
+  text-align: center;
+  text-shadow: 0 0 0.5em var(--primary-border-color);
+}
+
+.score {
+  text-shadow: 0 0 0.1em var(--primary-border-color);
+  font-size: 1.5em;
+  margin: 2em;
+  font-weight: bold;
+}
+
+.leftSide {
+  padding-right: 2em;
+}
