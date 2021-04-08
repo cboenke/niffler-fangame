@@ -34,6 +34,8 @@ function Game(this: Phaser.Scene) {
     let scoreText: Phaser.GameObjects.Text;
     let container: Phaser.GameObjects.Container;
     let scoreCam; //no type definition because phasers type definition is missing a property
+    let gameOverText: Phaser.GameObjects.Text;
+    let tryAgainText: Phaser.GameObjects.Text;
 
     function preload(this: Phaser.Scene) {
       [
@@ -201,6 +203,36 @@ function Game(this: Phaser.Scene) {
         chalice,
         cigarette,
       ]);
+
+      const centerX = window.innerWidth / 2;
+
+      gameOverText = this.add.text(centerX, 155, "Game Over", {
+        fontFamily: "Roboto",
+        fontSize: "10em",
+        fontStyle: "bold",
+        color: "#e3b93b",
+      });
+      gameOverText.setOrigin(0.5);
+      gameOverText.setFontFamily("sans-serif");
+      gameOverText.setShadow(1, 2, "#270c81", 3);
+      gameOverText.visible = false;
+      this.cameras.main.ignore(gameOverText);
+
+      tryAgainText = this.add.text(centerX, 280, "Try again", {
+        fontFamily: "Roboto",
+        fontSize: "5em",
+        fontStyle: "bold",
+        color: "#e3b93b",
+      });
+      tryAgainText.setOrigin(0.5);
+      tryAgainText.setFontFamily("sans-serif");
+      tryAgainText.setShadow(1, 2, "#270c81", 3);
+      tryAgainText.visible = false;
+      this.cameras.main.ignore(tryAgainText);
+      tryAgainText.setInteractive();
+      tryAgainText.once("pointerup", function () {
+        location = window.location;
+      });
     }
 
     function update(this: Phaser.Scene) {
@@ -272,6 +304,8 @@ function Game(this: Phaser.Scene) {
       player.flipY = true;
       player.anims.play("standing", true);
       gameOver = true;
+      gameOverText.visible = true;
+      tryAgainText.visible = true;
     }
 
     const game = new Phaser.Game(config);
