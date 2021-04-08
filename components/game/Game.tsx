@@ -252,6 +252,11 @@ function Game(this: Phaser.Scene) {
       score += 100;
       scoreText.setText("Score: " + score);
       localStorage.setItem("score", JSON.stringify(score));
+      this.time.timeScale = 2;
+      this.time.addEvent({
+        delay: 10000,
+        callback: (window.location.href = "/level-completed"),
+      });
     }
 
     function touchRandomEnemies(childrenE) {
