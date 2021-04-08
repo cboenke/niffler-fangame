@@ -4,6 +4,10 @@ import styles from "./LevelCompleted.module.css";
 function LevelCompleted() {
   const [displayedScore, setDisplayedScore] = useState("");
   useEffect(() => {
+    if (!displayedScore) {
+      setDisplayedScore("100");
+    }
+
     setDisplayedScore(JSON.parse(localStorage.getItem("score")));
   });
 
