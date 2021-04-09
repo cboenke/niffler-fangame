@@ -3,10 +3,16 @@ import Phaser from "phaser";
 
 function Game(this: Phaser.Scene) {
   useEffect(() => {
-    const config: Phaser.Types.Core.GameConfig = {
+    const config = {
       type: Phaser.AUTO,
+      backgroundColor: "#270c81",
       width: "100%",
       height: 375,
+      scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_VERTICALLY,
+        parent: "main",
+      },
       scene: {
         preload: preload,
         create: create,
