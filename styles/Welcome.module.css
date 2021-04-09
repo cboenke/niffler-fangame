@@ -15,8 +15,7 @@
 }
 
 .img {
-  margin-top: 7em;
-  margin-bottom: 2em;
+  place-self: center;
 }
 
 .buttons {
