@@ -36,6 +36,8 @@ function Game(this: Phaser.Scene) {
     let scoreCam; //no type definition because phasers type definition is missing a property
     let gameOverText: Phaser.GameObjects.Text;
     let tryAgainText: Phaser.GameObjects.Text;
+    let standing = true;
+    let pressSpaceText: Phaser.GameObjects.Text;
 
     function preload(this: Phaser.Scene) {
       [
@@ -177,6 +179,18 @@ function Game(this: Phaser.Scene) {
       // this.physics.add.collider(collectGroup, null);
       // this.physics.add.collider(collectGroup, noTreasureArea);
 
+      const centerX = window.innerWidth / 2;
+
+      pressSpaceText = this.add.text(centerX, 187, "Press space to start", {
+        fontFamily: "Roboto",
+        fontSize: "3.5em",
+        fontStyle: "bold",
+        color: "#e3b93b",
+      });
+      pressSpaceText.setOrigin(0.5);
+      pressSpaceText.setFontFamily("sans-serif");
+      pressSpaceText.setShadow(1, 2, "#270c81", 2);
+
       scoreText = this.add.text(16, 16, "Score", {
         fontFamily: "Roboto",
         fontSize: "4em",
@@ -203,8 +217,6 @@ function Game(this: Phaser.Scene) {
         chalice,
         cigarette,
       ]);
-
-      const centerX = window.innerWidth / 2;
 
       gameOverText = this.add.text(centerX, 155, "Game Over", {
         fontFamily: "Roboto",
@@ -237,21 +249,31 @@ function Game(this: Phaser.Scene) {
 
     function update(this: Phaser.Scene) {
       const cursors = this.input.keyboard.createCursorKeys();
+      const space = this.input.keyboard.addKey(
+        Phaser.Input.Keyboard.KeyCodes.SPACE
+      );
       if (gameOver) {
         return;
       }
-      if (cursors.right.isDown) {
-        player.setVelocityX(200);
+      if (space.isDown) {
+        standing = false;
         player.anims.play("running", true);
+        pressSpaceText.visible = false;
+      } else if (standing) {
+        player.setVelocityX(0);
+        player.anims.play("standing", true);
       } else if (cursors.up.isDown) {
-        player.setVelocityY(-50);
+        standing = false;
+        player.setVelocityY(-60);
         player.anims.play("running", true);
       } else if (cursors.down.isDown) {
-        player.setVelocityY(50);
+        standing = false;
+        player.setVelocityY(60);
         player.anims.play("running", true);
       } else {
-        player.setVelocityX(0) && player.setVelocityY(0);
-        player.anims.play("standing", true);
+        standing = false;
+        player.setVelocityX(150) && player.setVelocityY(0);
+        player.anims.play("running", true);
       }
       this.physics.add.collider(granny, player);
     }
