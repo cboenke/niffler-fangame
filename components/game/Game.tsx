@@ -27,6 +27,7 @@ function Game(this: Phaser.Scene) {
     let street: Phaser.GameObjects.Image;
     let granny: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
     let purseClasp: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
+    let purseNoClasp: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
     let collectGroup; //no type definition because phasers type definition is missing a property
     let necklace: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
     let chalice: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
@@ -74,7 +75,7 @@ function Game(this: Phaser.Scene) {
     function create(this: Phaser.Scene) {
       street = this.add.image(1340, 52, "street");
       granny = this.physics.add.image(1900, 140, "granny").setImmovable();
-      this.physics.add.image(1935, 224, "purseNoClasp");
+      purseNoClasp = this.physics.add.image(1935, 224, "purseNoClasp");
       purseClasp = this.physics.add.image(1935, 224, "purseClasp");
       necklace = this.physics.add.image(1320, 165, "necklace");
       chalice = this.physics.add.image(
@@ -219,6 +220,7 @@ function Game(this: Phaser.Scene) {
         granny,
         player,
         purseClasp,
+        purseNoClasp,
         necklace,
         chalice,
         cigarette,
