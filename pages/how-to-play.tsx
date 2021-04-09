@@ -13,7 +13,7 @@ export default function HowToPlay() {
       <main className={styles.main}>
         <img src="/howToPlay.png" className={styles.img} />
         <Introduction />
-        <div className={styles.button}>
+        <div className={styles.play}>
           <Button imgSrc="/playSymbol.svg" href="/game" />
         </div>
       </main>

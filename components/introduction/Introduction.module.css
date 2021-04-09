@@ -1,6 +1,10 @@
 .container {
   color: var(--primary-color);
   text-align: center;
+  line-height: 1.5;
+  display: grid;
+  align-content: center;
+  font-size: 1.2em;
 }
 
 .intro,
@@ -9,7 +13,11 @@
   text-shadow: 0 0 0.25em var(--primary-border-color);
 }
 
+.control.p {
+  margin: 0;
+}
+
 .subheading {
   text-shadow: 0 0 0.5em var(--primary-border-color);
-  padding: 1em 0 0.5em;
+  padding: 2em 0 0;
 }

@@ -8,12 +8,15 @@ function Introduction() {
           Niffler is a fantastic beast which can&apos;t resist shiny things.
         </section>
         <section>
-          Follow him on his adventure and help him collect as many golden and
-          shiny things as you can but avoid everything else.
+          Follow him on his adventure and help him collect as many <br /> golden
+          and shiny things as you can but avoid everything else.
         </section>
       </div>
-      <h3 className={styles.subheading}>Navigation</h3>
-      <section className={styles.control}>Tbd</section>
+      <h2 className={styles.subheading}>Game control</h2>
+      <section className={styles.control}>
+        <p>Press space ⎵ to start the game.</p>
+        <p>Control Niffler with up and down keys. ↑↓</p>
+      </section>
     </div>
   );
 }
