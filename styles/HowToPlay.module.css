@@ -7,10 +7,10 @@
 }
 
 .main {
-  padding: 4.5rem 3rem;
+  padding: 4.5rem 6rem;
   display: grid;
   justify-content: center;
-  align-content: space-between;
+  grid-template-rows: auto 1fr auto;
   margin: 0;
 }
 
@@ -19,6 +19,7 @@
   justify-self: center;
 }
 
-.button {
-  justify-self: end;
+.play {
+  justify-self: center;
+  transform: translateY(-2.5em);
 }
