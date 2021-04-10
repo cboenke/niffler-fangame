@@ -17,9 +17,7 @@
 .img {
   display: grid;
   width: 80%;
-  margin-top: 7em;
-  margin-bottom: 7em;
-  justify-self: center;
+  place-self: center;
 }
 
 .play {
